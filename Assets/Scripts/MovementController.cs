@@ -15,6 +15,7 @@ public class MovementController : MonoBehaviour {
 	public float verticalLookRange = 60.0f;	//	Range of vertical look
 
 	private float verticalVelocity = 0;
+	public float gravityMultiplier = 8.0f;
 
 	void Start () {
 		
@@ -35,7 +36,7 @@ public class MovementController : MonoBehaviour {
 		float sideMovement = Input.GetAxis ("Horizontal") * moveSpeed;	//	Get left/right input
 		float fowardMovement = Input.GetAxis ("Vertical") * moveSpeed;	//	Get forward/backward input
 
-		verticalVelocity += Physics.gravity.y * 8 * Time.deltaTime;	//	Simulate gravity
+		verticalVelocity += Physics.gravity.y * gravityMultiplier * Time.deltaTime;	//	Simulate gravity
 
 		Vector3 movement = new Vector3 (sideMovement, verticalVelocity, fowardMovement);	//	Set movement to the input values
 
