@@ -7,36 +7,36 @@ public class MovementController : MonoBehaviour {
 	public Rigidbody playerBody;
 	public CharacterController cc;
 
-	public float moveSpeed = 10.0f;
-	public float jumpForce;
+	public float moveSpeed = 10.0f;	//	Speed of the player
 
-	public float mouseSensitivity = 5.0f;
+	public float mouseSensitivity = 5.0f;	//	Look sensitivity of mouse
 
-	public float verticalRotation = 0;
-	public float upDownRange = 60.0f;
+	public float verticalLook = 0;	//	Default vertical rotation value
+	public float verticalLookRange = 60.0f;	//	Range of vertical look
 
 	void Start () {
-		playerBody = this.GetComponent<Rigidbody> ();
-		cc = GetComponent<CharacterController> ();
-		Cursor.lockState = CursorLockMode.Locked;
+		playerBody = this.GetComponent<Rigidbody> ();	//	Rigidbody Component
+		cc = GetComponent<CharacterController> ();	//	Character Controller Component
+		Cursor.lockState = CursorLockMode.Locked;	//	Renders the cursor invisible
 	}
 
 	void Update () {
-		/* Rotation */
-		transform.Rotate (0, Input.GetAxis ("Mouse X") * mouseSensitivity , 0);
+		/* Player & camera rotation */
+		transform.Rotate (0, Input.GetAxis ("Mouse X") * mouseSensitivity , 0);	//	Turn the player with the mouse x position
 
-		verticalRotation -= Input.GetAxis ("Mouse Y") * mouseSensitivity;
-		verticalRotation = Mathf.Clamp (verticalRotation, -upDownRange, upDownRange);
+		verticalLook -= Input.GetAxis ("Mouse Y") * mouseSensitivity;	//	Subtract mouse y position from vertical look
+		verticalLook = Mathf.Clamp (verticalLook, -verticalLookRange, verticalLookRange);	//	Clamp the range
 
-		Camera.main.transform.localRotation = Quaternion.Euler (verticalRotation, 0, 0); 
+		Camera.main.transform.localRotation = Quaternion.Euler (verticalLook, 0, 0); //	Set the transform rotation of the camera
 
-		/* Movement */
-		float sideMovement = Input.GetAxis ("Horizontal") * moveSpeed;
-		float fowardMovement = Input.GetAxis ("Vertical") * moveSpeed;
+		/* Player movement */
+		float sideMovement = Input.GetAxis ("Horizontal") * moveSpeed;	//	Get left/right input
+		float fowardMovement = Input.GetAxis ("Vertical") * moveSpeed;	//	Get forward/backward input
 
-		Vector3 speed = new Vector3 (sideMovement, 0, fowardMovement);
+		Vector3 movement = new Vector3 (sideMovement, 0, fowardMovement);	//	Set movement to the input values
 
-		speed = transform.rotation * speed;
-		cc.SimpleMove (speed);
+		movement = transform.rotation * movement;
+
+		cc.SimpleMove (movement);
 	}
 }
