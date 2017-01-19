@@ -36,28 +36,18 @@ public class MovementController : MonoBehaviour {
 		float sideMovement = Input.GetAxis ("Horizontal") * moveSpeed;	//	Get left/right input
 		float forwardMovement = Input.GetAxis ("Vertical") * moveSpeed;	//	Get forward/backward input
 
-//		verticalVelocity += Physics.gravity.y * gravityMultiplier * Time.deltaTime;	//	Simulate gravity
-//
-//		Vector3 movement = new Vector3 (sideMovement, verticalVelocity, fowardMovement);	//	Set movement to the input values
-//
-//		movement = transform.rotation * movement;
-//
-//		cc.Move (movement * Time.deltaTime);
-
 		/* Jump mechanics */
 		if (!cc.isGrounded) {
 			verticalVelocity += Physics.gravity.y * gravityMultiplier* Time.deltaTime;
 		}
 
 		if (Input.GetButtonDown ("Jump") && cc.isGrounded) {	//	Jump if the player is on the ground
-//			verticalVelocity = jumpForce;
 			verticalVelocity = jumpForce;
-			print ("Jump" + verticalVelocity);
 		}
 
-		Vector3 movement = new Vector3 (sideMovement, verticalVelocity, forwardMovement);
+		Vector3 movement = new Vector3 (sideMovement, verticalVelocity, forwardMovement);	//	Movement vector3
 		movement = transform.rotation * movement;
 
-		cc.Move (movement * Time.deltaTime); 
+		cc.Move (movement * Time.deltaTime);	//	Move the player
 	}
 }
