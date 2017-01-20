@@ -9,10 +9,6 @@ public class ShootController : MonoBehaviour {
 	public Transform firePoint;
 	public float shootForce = 500.0f;
 	public Quaternion rotation = Quaternion.identity;
-	private Vector3 center;
-
-	void Start () {
-	}
 
 	void Update () {
 		if (Input.GetButtonDown ("Fire1")) {
@@ -20,7 +16,7 @@ public class ShootController : MonoBehaviour {
 		}
 	}
 
-	void shootArrow () {
+	void shootArrow () { 
 		arrowClone = Instantiate (arrowPrefab, firePoint.position, rotation);	//	Create the arrow
 		arrowClone.GetComponent<Rigidbody> ().AddForce (playerFace.forward * shootForce);	//	Add force to it
 		destroyClone ();
