@@ -16,9 +16,17 @@ public class ShootController : MonoBehaviour {
 
 	void Update () {
 		if (Input.GetButtonDown ("Fire1")) {
-			arrowClone = Instantiate (arrowPrefab, firePoint.position, rotation);
-			arrowClone.GetComponent<Rigidbody> ().isKinematic = false;
-			arrowClone.GetComponent<Rigidbody> ().AddForce (transform.rotation.eulerAngles * shootForce);
+			shootArrow ();
 		}
+	}
+
+	void shootArrow () {
+		arrowClone = Instantiate (arrowPrefab, firePoint.position, rotation);	//	Create the arrow
+		arrowClone.GetComponent<Rigidbody> ().AddForce (playerFace.forward * shootForce);	//	Add force to it
+		destroyClone ();
+	}
+
+	private void destroyClone () {
+		Destroy (arrowClone, 2);
 	}
 }
