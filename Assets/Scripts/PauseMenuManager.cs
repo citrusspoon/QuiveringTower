@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PauseMenuManager : MonoBehaviour {
 
+	void Start () {
+		CloseMenu ();
+	}
+
 	/* Close the pause menu */
 	public void CloseMenu () {
 		this.GetComponent<Canvas> ().enabled = false;
