@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour {
 
-	public void startNewGame(){
+	public void StartNewGame(){
 		UnityEngine.SceneManagement.SceneManager.LoadScene ("Main");
 	}
 
