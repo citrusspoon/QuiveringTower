@@ -1,12 +1,14 @@
 fileFormatVersion: 2
 guid: 123c845a0a1714574a6bca1158fcf87a
-timeCreated: 1485036828
+timeCreated: 1485040479
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - arrowPrefab: {instanceID: 0}
   - dissolveArrowPrefab: {instanceID: 0}
+  - pullArrowPrefab: {fileID: 1562062087836358, guid: a1d89a5222bba114dbeb213ea46437ec,
+      type: 2}
   - playerFace: {instanceID: 0}
   - firePoint: {instanceID: 0}
   executionOrder: 0

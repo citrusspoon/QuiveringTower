@@ -5,7 +5,8 @@ using UnityEngine;
 public class ShootController : MonoBehaviour {
 	public GameObject arrowPrefab;
     public GameObject dissolveArrowPrefab;
-    public int currentArrow = 1; //  1 = normal | 2 = dissolve
+    public GameObject pullArrowPrefab;
+    public int currentArrow = 1; //  1 = normal | 2 = dissolve | 3 = pull
 	private GameObject arrowClone;
 	public Transform playerFace;
 	public Transform firePoint;
@@ -25,6 +26,11 @@ public class ShootController : MonoBehaviour {
             currentArrow = 2;
             print("Selected dissolve arrow");
         }
+        else if (Input.GetButtonDown("Select Pull Arrow"))
+        {
+            currentArrow = 3;
+            print("Selected pull arrow");
+        }
     }
 
     void ShootArrow() {
@@ -36,6 +42,9 @@ public class ShootController : MonoBehaviour {
                 break;
             case 2:
                 arrowClone = Instantiate(dissolveArrowPrefab, firePoint.position, rotation);    //	Create the arrow
+                break;
+            case 3:
+                arrowClone = Instantiate(pullArrowPrefab, firePoint.position, rotation);    //	Create the arrow
                 break;
             default:
                 arrowClone = Instantiate(arrowPrefab, firePoint.position, rotation);    //	Create the arrow
@@ -53,8 +62,4 @@ public class ShootController : MonoBehaviour {
 		Destroy (arrowClone, 2);
 	}
 
-    public int getCurrentArrow()
-    {
-        return currentArrow;
-    }
 }
