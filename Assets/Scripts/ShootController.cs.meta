@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: 123c845a0a1714574a6bca1158fcf87a
-timeCreated: 1484854217
+timeCreated: 1485036828
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - arrowPrefab: {instanceID: 0}
+  - dissolveArrowPrefab: {instanceID: 0}
+  - playerFace: {instanceID: 0}
+  - firePoint: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
