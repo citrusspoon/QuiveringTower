@@ -52,4 +52,9 @@ public class ShootController : MonoBehaviour {
 	private void DestroyClone () {
 		Destroy (arrowClone, 2);
 	}
+
+    public int getCurrentArrow()
+    {
+        return currentArrow;
+    }
 }

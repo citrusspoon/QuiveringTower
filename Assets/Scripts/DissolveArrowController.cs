@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrowController : MonoBehaviour {
+public class DissolveArrowController : MonoBehaviour {
 	public Rigidbody arrow;
 
 	void OnCollisionEnter (Collision col) {	//	When the arrow hits something
@@ -13,6 +13,7 @@ public class ArrowController : MonoBehaviour {
 		arrow.isKinematic = true;	//	Stop the arrow
 	
 		transform.parent = col.transform;	//	Make the arrow a child of the gameobject it hits
+        Destroy(col.gameObject);
 
 	}
 }
