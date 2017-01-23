@@ -34,7 +34,7 @@ public class ShootController : MonoBehaviour {
     }
 
     void ShootArrow() {
-
+		rotation = transform.rotation * Quaternion.Euler (new Vector3 (90, 0));
         switch (currentArrow)
         {
             case 1:
