@@ -7,6 +7,11 @@ public class ArrowController : MonoBehaviour {
 
 	private Quaternion lastOrientation;
 
+	void Start ()
+	{
+		lastOrientation = transform.rotation; // Store initial orientation of the arrow
+	}
+
 	void OnCollisionEnter (Collision col) {	//	When the arrow hits something
 		ArrowStick (col);
 	}
@@ -19,11 +24,11 @@ public class ArrowController : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-		if (!arrow.isKinematic) {
+		if (arrow.velocity.magnitude>0.1) {		// If the arrow is flying, orient it with the velocity
 			transform.rotation = Quaternion.LookRotation (GetComponent<Rigidbody> ().velocity) * Quaternion.Euler (Vector3.right * 90);
 			lastOrientation = transform.rotation;
 		} else {
-			transform.rotation = lastOrientation;
+			transform.rotation = lastOrientation;	// If the arrow stops retain last known orientation
 		}
 	}
 }
