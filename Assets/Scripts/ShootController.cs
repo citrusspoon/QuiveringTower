@@ -11,7 +11,7 @@ public class ShootController : MonoBehaviour {
 	public Transform playerFace;
 	public Transform firePoint;
 	public float shootForce = 500.0f;
-	public Quaternion rotation = Quaternion.identity;
+	private Quaternion rotation = Quaternion.identity;
 
 	void Update () {
         if (Input.GetButtonDown("Fire1")) {
@@ -34,7 +34,7 @@ public class ShootController : MonoBehaviour {
     }
 
     void ShootArrow() {
-		rotation = transform.rotation * Quaternion.Euler (new Vector3 (90, 0));
+		rotation = firePoint.rotation * Quaternion.Euler (new Vector3 (90, 0));
         switch (currentArrow)
         {
             case 1:
