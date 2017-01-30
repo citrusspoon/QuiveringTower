@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShootController : MonoBehaviour {
 	public GameObject arrowPrefab;
@@ -13,24 +14,33 @@ public class ShootController : MonoBehaviour {
 	public float shootForce = 500.0f;
 	private Quaternion rotation = Quaternion.identity;
 
+	// NOTE> Can we do this in a more elegant way?
+	public Image drawPowerMeter;
+
+
+	private float currentShootPower = 0.0f;
+	private int shootPowerSpeed = 75;
+
 	void Update () {
-        if (Input.GetButtonDown("Fire1")) {
-            ShootArrow();
-        }
-        else if (Input.GetButtonDown("Select Normal Arrow")) {
-            currentArrow = 1;
-            print("Selected normal arrow");
-        }
-        else if (Input.GetButtonDown("Select Dissolve Arrow"))
-        {
-            currentArrow = 2;
-            print("Selected dissolve arrow");
-        }
-        else if (Input.GetButtonDown("Select Pull Arrow"))
-        {
-            currentArrow = 3;
-            print("Selected pull arrow");
-        }
+		if (Input.GetButtonDown ("Fire1")) {
+			currentShootPower = 0;
+			//ShootArrow();
+		} else if (Input.GetButtonDown ("Select Normal Arrow")) {
+			currentArrow = 1;
+			print ("Selected normal arrow");
+		} else if (Input.GetButtonDown ("Select Dissolve Arrow")) {
+			currentArrow = 2;
+			print ("Selected dissolve arrow");
+		} else if (Input.GetButtonDown ("Select Pull Arrow")) {
+			currentArrow = 3;
+			print ("Selected pull arrow");
+		} else if (Input.GetButton ("Fire1")) {
+			currentShootPower += Mathf.Clamp(shootPowerSpeed * Time.deltaTime,0,100);
+		} else if (Input.GetButtonUp ("Fire1")) {
+			ShootArrow ();
+		}
+
+		drawPowerMeter.fillAmount = currentShootPower / 100;
     }
 
     void ShootArrow() {
@@ -54,8 +64,9 @@ public class ShootController : MonoBehaviour {
             
 
     
-		arrowClone.GetComponent<Rigidbody> ().AddForce (playerFace.forward * shootForce);	//	Add force to it
+		arrowClone.GetComponent<Rigidbody> ().AddForce (playerFace.forward * shootForce * (currentShootPower / 100));	//	Add force to it
 		DestroyClone ();
+
 		GetComponent<AudioSource> ().Play ();
 	}
 
