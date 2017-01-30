@@ -11,6 +11,13 @@ public class PauseMenuManager : MonoBehaviour {
 	/* Close the pause menu */
 	public void CloseMenu () {
 		this.GetComponent<Canvas> ().enabled = false;
+		Cursor.lockState = CursorLockMode.Locked;
+	}
+
+	public void ShowMenu (){
+		this.GetComponent<Canvas> ().enabled = true;
+		// Should be Confined but somehow does not work in Unity Editor
+		Cursor.lockState = CursorLockMode.None;
 	}
 
 	public void OpenSettings () {
@@ -20,5 +27,6 @@ public class PauseMenuManager : MonoBehaviour {
 	public void ExitGame () {
 		UnityEngine.SceneManagement.SceneManager.LoadScene ("Menu");
 	}
+
 
 }
