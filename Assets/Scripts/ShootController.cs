@@ -56,6 +56,7 @@ public class ShootController : MonoBehaviour {
     
 		arrowClone.GetComponent<Rigidbody> ().AddForce (playerFace.forward * shootForce);	//	Add force to it
 		DestroyClone ();
+		GetComponent<AudioSource> ().Play ();
 	}
 
 	private void DestroyClone () {
