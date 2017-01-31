@@ -9,10 +9,6 @@ public class ArrowController : MonoBehaviour {
 	public ArrowType type; 
 	private Quaternion lastOrientation;
 
-
-
-
-
 	private Ray movementRay;
 	private RaycastHit raycastResult;
 
@@ -21,17 +17,17 @@ public class ArrowController : MonoBehaviour {
 		movementRay = new Ray ();
 		lastOrientation = transform.rotation; // Store initial orientation of the arrow
 	}
-
-	void OnCollisionEnter (Collision col) {	//	When the arrow hits something
-		ArrowStick (col);
-	}
-
-	void ArrowStick (Collision col) {
-		arrow.isKinematic = true;	//	Stop the arrow
-		arrow.detectCollisions = false;
-		transform.parent = col.transform;	//	Make the arrow a child of the gameobject it hits
-
-	}
+//
+//	void OnCollisionEnter (Collision col) {	//	When the arrow hits something
+//		ArrowStick (col);
+//	}
+//
+//	void ArrowStick (Collision col) {
+//		arrow.isKinematic = true;	//	Stop the arrow
+//		arrow.detectCollisions = false;
+//		transform.parent = col.transform;	//	Make the arrow a child of the gameobject it hits
+//
+//	}
 
 	void FixedUpdate(){
 		if (arrow.velocity.magnitude>0.1) {		// If the arrow is flying, orient it with the velocity
@@ -43,23 +39,23 @@ public class ArrowController : MonoBehaviour {
 			// Test for possible hits in the next frame
 			if (Physics.Raycast(movementRay,out raycastResult,GetComponent<Rigidbody> ().velocity.magnitude)){
 
-				//Arrow effects
-				switch (type) {
-				case ArrowType.Push:
-					raycastResult.rigidbody.AddForceAtPosition (arrow.velocity * 10, raycastResult.point, ForceMode.Impulse);
-					break;
-				case ArrowType.Pull:
-					raycastResult.rigidbody.AddForceAtPosition (arrow.velocity * -10, raycastResult.point, ForceMode.Impulse);
-					break;
-				case ArrowType.Dissolve:
-					Destroy(raycastResult.rigidbody.gameObject);
-					break;
-				default:
-					break;
+				if (raycastResult.rigidbody != null) {
+					//Arrow effects
+					switch (type) {
+					case ArrowType.Push:
+						raycastResult.rigidbody.AddForceAtPosition (arrow.velocity * 10, raycastResult.point, ForceMode.Impulse);
+						break;
+					case ArrowType.Pull:
+						raycastResult.rigidbody.AddForceAtPosition (arrow.velocity * -10, raycastResult.point, ForceMode.Impulse);
+						break;
+					case ArrowType.Dissolve:
+						Destroy (raycastResult.rigidbody.gameObject);
+						break;
+					default:
+						break;
+					}
 				}
-
-
-
+					
 				//Stop the arrow
 				arrow.isKinematic = true;
 
