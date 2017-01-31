@@ -43,7 +43,7 @@ public class ArrowController : MonoBehaviour {
 			// Test for possible hits in the next frame
 			if (Physics.Raycast(movementRay,out raycastResult,GetComponent<Rigidbody> ().velocity.magnitude)){
 
-				//Arrow effect
+				//Arrow effects
 				switch (type) {
 				case ArrowType.Push:
 					raycastResult.rigidbody.AddForceAtPosition (arrow.velocity * 10, raycastResult.point, ForceMode.Impulse);
@@ -51,14 +51,19 @@ public class ArrowController : MonoBehaviour {
 				case ArrowType.Pull:
 					raycastResult.rigidbody.AddForceAtPosition (arrow.velocity * -10, raycastResult.point, ForceMode.Impulse);
 					break;
+				case ArrowType.Dissolve:
+					Destroy(raycastResult.rigidbody.gameObject);
+					break;
 				default:
 					break;
 				}
 
 
 
-				//arrow.velocity = Vector3.zero;
+				//Stop the arrow
 				arrow.isKinematic = true;
+
+				// Stick to the surface shot
 				transform.position = raycastResult.point;
 				transform.parent = raycastResult.transform;
 			}
