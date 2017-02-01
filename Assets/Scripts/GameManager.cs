@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 	// Use this manager to handle UI activity
-
-
+	public PauseMenuManager pmm;
 	public Text timerText;
 	public Image timerFill;
 
@@ -30,13 +29,10 @@ public class GameManager : MonoBehaviour {
 		timerFill.fillAmount = turnTimeLeft / totalTurnTime;
 
 		if (Input.GetButtonDown ("Pause")) {
-			print ("Pause");
-			PauseGame ();
+			if (pmm.getPauseState () == 0) {
+				pmm.SetPauseState (PauseMenuManager.PAUSE.PAUSED);
+			} else
+				pmm.SetPauseState (PauseMenuManager.PAUSE.UNPAUSED);
 		}
-	}
-
-	private void PauseGame(){
-		GameObject.FindObjectOfType<PauseMenuManager> ().ShowMenu ();
-		gamePaused = true;
 	}
 }

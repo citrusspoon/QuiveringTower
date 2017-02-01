@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class PauseMenuManager : MonoBehaviour {
 
+	public enum PAUSE {
+		PAUSED=1, UNPAUSED=0
+	}
+
+	private int pauseState;
+
 	void Start () {
-		CloseMenu ();
+		SetPauseState (PAUSE.UNPAUSED);
 	}
 
-	/* Close the pause menu */
-	public void CloseMenu () {
-		this.GetComponent<Canvas> ().enabled = false;
-		Cursor.lockState = CursorLockMode.Locked;
+	public void SetPauseState (PauseMenuManager.PAUSE flag) {
+		this.pauseState = (int)flag;
+		ToggleMenu ();
 	}
 
-	public void ShowMenu (){
-		this.GetComponent<Canvas> ().enabled = true;
-		// Should be Confined but somehow does not work in Unity Editor
-		Cursor.lockState = CursorLockMode.None;
+	public void ToggleMenu () {
+		if (pauseState == 1) {
+			this.GetComponent<Canvas> ().enabled = true;
+		} else {
+			this.GetComponent<Canvas> ().enabled = false;
+		}
+			
 	}
 
 	public void OpenSettings () {
@@ -26,6 +34,10 @@ public class PauseMenuManager : MonoBehaviour {
 
 	public void ExitGame () {
 		UnityEngine.SceneManagement.SceneManager.LoadScene ("Menu");
+	}
+
+	public int getPauseState () {
+		return pauseState;
 	}
 
 
