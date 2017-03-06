@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ArrowController : MonoBehaviour {
-	public enum ArrowType {Push,Pull,Dissolve};
+	public enum ArrowType {Push,Pull,Dissolve,Rocket};
 
 	public Rigidbody arrow;
 	public ArrowType type; 
@@ -55,6 +55,12 @@ public class ArrowController : MonoBehaviour {
 					case ArrowType.Dissolve:
 						Destroy (raycastResult.rigidbody.gameObject);
 						break;
+					case ArrowType.Rocket:
+						//raycastResult.rigidbody.AddForceAtPosition (arrow.velocity * 500, raycastResult.point, ForceMode.Force);
+						//raycastResult.rigidbody.GetComponent<ConstantForce>().for
+						StartCoroutine(applyConstantForce(raycastResult.rigidbody,arrow.velocity * 50));
+						//applyConstantForce(raycastResult.rigidbody,arrow.velocity);
+						break;
 					default:
 						break;
 					}
@@ -75,6 +81,18 @@ public class ArrowController : MonoBehaviour {
 			transform.rotation = lastOrientation;	// If the arrow stops retain last known orientation
 		}
 
+	}
+
+	// Coroutine to apply constant force to a block
+	IEnumerator applyConstantForce(Rigidbody block, Vector3 force){
+		float startingTime = Time.time;
+		print("Start coroutine");
+		while (Time.time < startingTime + 3){
+			block.AddForce(force);
+			yield return new WaitForFixedUpdate();
+			print(Time.time);
+		}
+		print("End coroutine");
 	}
 
 }

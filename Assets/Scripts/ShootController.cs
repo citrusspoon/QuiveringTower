@@ -4,9 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ShootController : MonoBehaviour {
-	public GameObject arrowPrefab;
-    public GameObject dissolveArrowPrefab;
-    public GameObject pullArrowPrefab;
+	public ArrowController pushArrow,pullArrow,dissolveArrow, rocketArrow;
     public int currentArrow = 1; //  1 = normal | 2 = dissolve | 3 = pull
 	private GameObject arrowClone;
 	public Transform playerFace;
@@ -34,6 +32,9 @@ public class ShootController : MonoBehaviour {
 		} else if (Input.GetButtonDown ("Select Pull Arrow")) {
 			currentArrow = 3;
 			print ("Selected pull arrow");
+		} else if (Input.GetButton ("Select Rocket Arrow")){
+			currentArrow = 4;
+			print("Selected Rocket Arrow");
 		} else if (Input.GetButton ("Fire1")) {
 			currentShootPower += Mathf.Clamp(shootPowerSpeed * Time.deltaTime,0,100);
 		} else if (Input.GetButtonUp ("Fire1")) {
@@ -49,16 +50,19 @@ public class ShootController : MonoBehaviour {
         switch (currentArrow)
         {
             case 1:
-                arrowClone = Instantiate(arrowPrefab, firePoint.position, rotation);    //	Create the arrow
+                arrowClone = Instantiate(pushArrow.gameObject, firePoint.position, rotation);    //	Create the arrow
                 break;
             case 2:
-                arrowClone = Instantiate(dissolveArrowPrefab, firePoint.position, rotation);    //	Create the arrow
+                arrowClone = Instantiate(dissolveArrow.gameObject, firePoint.position, rotation);    //	Create the arrow
                 break;
             case 3:
-                arrowClone = Instantiate(pullArrowPrefab, firePoint.position, rotation);    //	Create the arrow
+                arrowClone = Instantiate(pullArrow.gameObject, firePoint.position, rotation);    //	Create the arrow
+                break;
+			case 4:
+                arrowClone = Instantiate(rocketArrow.gameObject, firePoint.position, rotation);    //	Create the arrow
                 break;
             default:
-                arrowClone = Instantiate(arrowPrefab, firePoint.position, rotation);    //	Create the arrow
+                arrowClone = Instantiate(pushArrow.gameObject, firePoint.position, rotation);    //	Create the arrow
                 break;
         }
 
@@ -72,7 +76,7 @@ public class ShootController : MonoBehaviour {
 	}
 
 	private void DestroyClone () {
-		Destroy (arrowClone, 2);
+		Destroy (arrowClone, 10);
 	}
 
 }
