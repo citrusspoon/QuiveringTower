@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
 	public PauseMenuManager pmm;
 	public Text timerText;
 	public Image timerFill;
+	public Text scoreText;
+	public GameObject crosshair, cannotShootIcon;
 
 	private float turnTimeLeft;
 	private bool gamePaused = false;
@@ -34,5 +36,9 @@ public class GameManager : MonoBehaviour {
 			} else
 				pmm.SetPauseState (PauseMenuManager.PAUSE.UNPAUSED);
 		}
+
+		scoreText.text = "Score: " + RulesManager.manager.playerScore.ToString();
+		crosshair.SetActive(RulesManager.manager.playerCanShoot);
+		cannotShootIcon.SetActive(!RulesManager.manager.playerCanShoot);
 	}
 }
