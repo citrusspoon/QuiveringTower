@@ -42,6 +42,7 @@ public class PauseMenuManager : MonoBehaviour {
 
 	public void resumeGame(){
 		SetPauseState(PauseMenuManager.PAUSE_STATE.UNPAUSED);
+		Cursor.lockState = CursorLockMode.Locked;
 	}
 
 
