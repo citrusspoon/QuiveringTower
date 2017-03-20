@@ -40,5 +40,9 @@ public class PauseMenuManager : MonoBehaviour {
 		return pauseState;
 	}
 
+	public void resumeGame(){
+		SetPauseState(PauseMenuManager.PAUSE_STATE.UNPAUSED);
+	}
+
 
 }

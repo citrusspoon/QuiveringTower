@@ -41,8 +41,10 @@ public class ShootController : MonoBehaviour {
 		} else if (Input.GetButton ("Fire1")) {
 			currentShootPower += Mathf.Clamp(shootPowerSpeed * Time.deltaTime,0,100);
 		} else if (Input.GetButtonUp ("Fire1")) {
-			ShootArrow ();
-			currentShootPower = 0;
+			if (currentShootPower > 0){
+				ShootArrow ();
+				currentShootPower = 0;
+			}
 		}
 
 		drawPowerMeter.fillAmount = currentShootPower / 100;
