@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!gamePaused) {
+		if (!isGamePaused()) {
 			turnTimeLeft -= Time.deltaTime;
 			timerText.text = Mathf.RoundToInt (turnTimeLeft).ToString ();
 		}
