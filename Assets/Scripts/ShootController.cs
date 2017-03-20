@@ -20,6 +20,9 @@ public class ShootController : MonoBehaviour {
 	private int shootPowerSpeed = 75;
 
 	void Update () {
+		if (GameObject.FindObjectOfType<GameManager>().isGamePaused()){
+			return;
+		}
 		if (Input.GetButtonDown ("Fire1")) {
 			currentShootPower = 0;
 			//ShootArrow();
@@ -38,8 +41,10 @@ public class ShootController : MonoBehaviour {
 		} else if (Input.GetButton ("Fire1")) {
 			currentShootPower += Mathf.Clamp(shootPowerSpeed * Time.deltaTime,0,100);
 		} else if (Input.GetButtonUp ("Fire1")) {
-			ShootArrow ();
-			currentShootPower = 0;
+			if (currentShootPower > 0){
+				ShootArrow ();
+				currentShootPower = 0;
+			}
 		}
 
 		drawPowerMeter.fillAmount = currentShootPower / 100;
