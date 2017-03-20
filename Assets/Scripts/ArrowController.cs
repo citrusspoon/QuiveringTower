@@ -25,15 +25,6 @@ public class ArrowController : MonoBehaviour {
 		movementRay.origin = transform.position;
 		movementRay.direction = arrow.velocity;
 
-
-		if (arrowWillStick != null) {
-				//Stop the arrow
-				arrow.isKinematic = true;
-
-				// Stick to the surface shot
-				transform.parent = arrowWillStick;
-		}
-
 		if (arrow.velocity.magnitude > 0.1) {		// If the arrow is flying, orient it with the velocity
 			//TODO Optimize this script by moving the GetComp.
 			transform.rotation = Quaternion.LookRotation (arrow.velocity) * Quaternion.Euler (Vector3.right * 90);
@@ -56,10 +47,7 @@ public class ArrowController : MonoBehaviour {
 						Destroy (raycastResult.rigidbody.gameObject);
 						break;
 					case ArrowType.Rocket:
-						//raycastResult.rigidbody.AddForceAtPosition (arrow.velocity * 500, raycastResult.point, ForceMode.Force);
-						//raycastResult.rigidbody.GetComponent<ConstantForce>().for
 						StartCoroutine(applyConstantForce(raycastResult.rigidbody,arrow.velocity * 50));
-						//applyConstantForce(raycastResult.rigidbody,arrow.velocity);
 						break;
 					default:
 						break;
@@ -69,12 +57,10 @@ public class ArrowController : MonoBehaviour {
 				arrowWillStick = raycastResult.transform;
 				print("Sticking");
 				//Stop the arrow
-				arrow.isKinematic = true;
-
-				// Stick to the surface shot
-				transform.position = raycastResult.point;
+				arrow.isKinematic = true;;
+				
 				GetComponent<Rigidbody> ().MovePosition (raycastResult.point);
-				transform.SetParent(raycastResult.transform);
+				transform.SetParent(raycastResult.transform,true);
 			}
 		} else {
 			transform.rotation = lastOrientation;	// If the arrow stops retain last known orientation
