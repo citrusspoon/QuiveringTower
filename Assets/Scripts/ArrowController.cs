@@ -64,19 +64,18 @@ public class ArrowController : MonoBehaviour {
 					default:
 						break;
 					}
-					
-					arrowWillStick = raycastResult.transform;
-						
-					//Stop the arrow
-					arrow.isKinematic = true;
-
-					// Stick to the surface shot
-					transform.position = raycastResult.point;
-					GetComponent<Rigidbody> ().MovePosition (raycastResult.point);
-					transform.SetParent(raycastResult.transform);
 				}
-			}
 
+				arrowWillStick = raycastResult.transform;
+				print("Sticking");
+				//Stop the arrow
+				arrow.isKinematic = true;
+
+				// Stick to the surface shot
+				transform.position = raycastResult.point;
+				GetComponent<Rigidbody> ().MovePosition (raycastResult.point);
+				transform.SetParent(raycastResult.transform);
+			}
 		} else {
 			transform.rotation = lastOrientation;	// If the arrow stops retain last known orientation
 		}
