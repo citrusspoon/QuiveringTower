@@ -20,6 +20,9 @@ public class ShootController : MonoBehaviour {
 	private int shootPowerSpeed = 75;
 
 	void Update () {
+		if (GameObject.FindObjectOfType<GameManager>().isGamePaused()){
+			return;
+		}
 		if (Input.GetButtonDown ("Fire1")) {
 			currentShootPower = 0;
 			//ShootArrow();

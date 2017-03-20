@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class PauseMenuManager : MonoBehaviour {
 
-	public enum PAUSE {
-		PAUSED=1, UNPAUSED=0
+	public enum PAUSE_STATE {
+		PAUSED, UNPAUSED
 	}
 
-	private int pauseState;
+	private PAUSE_STATE pauseState;
 
 	void Start () {
-		SetPauseState (PAUSE.UNPAUSED);
+		SetPauseState (PAUSE_STATE.UNPAUSED);
 	}
 
-	public void SetPauseState (PauseMenuManager.PAUSE flag) {
-		this.pauseState = (int)flag;
+	public void SetPauseState (PauseMenuManager.PAUSE_STATE flag) {
+		this.pauseState = flag;
 		ToggleMenu ();
 	}
 
 	public void ToggleMenu () {
-		if (pauseState == 1) {
+		if (pauseState == PAUSE_STATE.PAUSED) {
 			this.GetComponent<Canvas> ().enabled = true;
 		} else {
 			this.GetComponent<Canvas> ().enabled = false;
@@ -36,7 +36,7 @@ public class PauseMenuManager : MonoBehaviour {
 		UnityEngine.SceneManagement.SceneManager.LoadScene ("Menu");
 	}
 
-	public int getPauseState () {
+	public PAUSE_STATE getPauseState () {
 		return pauseState;
 	}
 

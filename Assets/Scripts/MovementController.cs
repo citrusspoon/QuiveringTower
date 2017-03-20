@@ -16,15 +16,17 @@ public class MovementController : MonoBehaviour {
 
 	private float verticalVelocity = 0;
 	public float gravityMultiplier = 8.0f;
+	private GameManager gameManager;
 
 	void Start () {
-		
 		cc = GetComponent<CharacterController> ();	//	Character Controller Component
 		Cursor.lockState = CursorLockMode.Locked;	//	Renders the cursor invisible
+		gameManager = GameObject.FindObjectOfType<GameManager>();
 	}
 
 	void Update () {
-		/* Player & camera rotation */
+		if (!gameManager.isGamePaused()){
+			/* Player & camera rotation */
 		transform.Rotate (0, Input.GetAxis ("Mouse X") * mouseSensitivity , 0);	//	Turn the player with the mouse x position
 
 		verticalLook -= Input.GetAxis ("Mouse Y") * mouseSensitivity;	//	Subtract mouse y position from vertical look
@@ -49,5 +51,6 @@ public class MovementController : MonoBehaviour {
 		movement = transform.rotation * movement;
 
 		cc.Move (movement * Time.deltaTime);	//	Move the player
+		}
 	}
 }

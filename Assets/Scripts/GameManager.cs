@@ -31,14 +31,22 @@ public class GameManager : MonoBehaviour {
 		timerFill.fillAmount = turnTimeLeft / totalTurnTime;
 
 		if (Input.GetButtonDown ("Pause")) {
-			if (pmm.getPauseState () == 0) {
-				pmm.SetPauseState (PauseMenuManager.PAUSE.PAUSED);
+			if (pmm.getPauseState () == PauseMenuManager.PAUSE_STATE.UNPAUSED) {
+				pmm.SetPauseState (PauseMenuManager.PAUSE_STATE.PAUSED);
 			} else
-				pmm.SetPauseState (PauseMenuManager.PAUSE.UNPAUSED);
+				pmm.SetPauseState (PauseMenuManager.PAUSE_STATE.UNPAUSED);
 		}
 
 		scoreText.text = "Score: " + RulesManager.manager.playerScore.ToString();
 		crosshair.SetActive(RulesManager.manager.playerCanShoot);
 		cannotShootIcon.SetActive(!RulesManager.manager.playerCanShoot);
+	}
+
+	public bool isGamePaused(){
+		if (pmm.getPauseState() == PauseMenuManager.PAUSE_STATE.PAUSED){
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
