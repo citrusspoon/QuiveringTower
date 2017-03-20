@@ -23,9 +23,9 @@ public class ShootController : MonoBehaviour {
 		if (GameObject.FindObjectOfType<GameManager>().isGamePaused()){
 			return;
 		}
+
 		if (Input.GetButtonDown ("Fire1")) {
 			currentShootPower = 0;
-			//ShootArrow();
 		} else if (Input.GetButtonDown ("Select Normal Arrow")) {
 			currentArrow = 1;
 			print ("Selected normal arrow");
