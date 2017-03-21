@@ -49,5 +49,10 @@ public class RulesManager : MonoBehaviour {
 		print("Next Turn");
 		blockDownThisTurn = false;
 		playerCanShoot = true;
+
+		// Reset all blocks kinematics
+		foreach (BlockController block in GameObject.FindObjectsOfType<BlockController>()){
+			block.nextTurn();
+		}
 	}
 }

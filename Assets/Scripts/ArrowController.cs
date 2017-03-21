@@ -50,7 +50,7 @@ public class ArrowController : MonoBehaviour {
 						StartCoroutine(applyConstantForce(raycastResult.rigidbody,arrow.velocity * 50));
 						break;
 					case ArrowType.Freeze:
-						raycastResult.rigidbody.isKinematic = true;
+						raycastResult.collider.gameObject.GetComponent<BlockController>().setFreezeTurns(2);
 						break;
 					default:
 						break;

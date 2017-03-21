@@ -6,6 +6,7 @@ public class BlockController : MonoBehaviour {
 
 	public bool isTouchingGround = false;
 	public bool isInTower = true;
+	private int frozenTurns = 0;
 	public void OnCollisionStay(Collision collision){
 		// If a block is within the tower it cannot be grounded
 		// If the object we are touching is tagged as ground this block should also be grounded
@@ -18,7 +19,23 @@ public class BlockController : MonoBehaviour {
 
 	public void OnTriggerExit(){
 		isInTower = false;
-
 	}
+
+	public void setFreezeTurns(int turns){
+		frozenTurns = turns;
+		if (frozenTurns > 0){
+			GetComponent<Renderer>().material.color = Color.cyan;
+			GetComponent<Rigidbody>().isKinematic  =true;
+		} else {			
+			GetComponent<Renderer>().material.color = Color.white;
+			GetComponent<Rigidbody>().isKinematic  =false;
+		}
+	}
+
+	public void nextTurn(){
+		setFreezeTurns(frozenTurns - 1);
+	}
+
+
 
 }
