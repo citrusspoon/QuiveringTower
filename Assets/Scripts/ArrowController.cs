@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ArrowController : MonoBehaviour {
-	public enum ArrowType {Push,Pull,Dissolve,Rocket};
+	public enum ArrowType {Push,Pull,Dissolve,Rocket,Freeze, Shrink, Expand};
 
 	public Rigidbody arrow;
 	public ArrowType type; 
@@ -12,6 +12,7 @@ public class ArrowController : MonoBehaviour {
 	private Ray movementRay;
 	private RaycastHit raycastResult;
 	private Transform arrowWillStick = null;
+	[SerializeField] private int numberOfFreezeTurns; 
 
 	void Start ()
 	{
@@ -49,6 +50,15 @@ public class ArrowController : MonoBehaviour {
 					case ArrowType.Rocket:
 						StartCoroutine(applyConstantForce(raycastResult.rigidbody,arrow.velocity * 50));
 						break;
+					case ArrowType.Freeze:
+						raycastResult.collider.gameObject.GetComponent<BlockController>().setFreezeTurns(numberOfFreezeTurns);
+						break;
+					case ArrowType.Shrink:
+						raycastResult.transform.localScale = 0.9f * raycastResult.transform.localScale;
+						break;
+					case ArrowType.Expand:
+						raycastResult.transform.localScale = 1.1f * raycastResult.transform.localScale;
+						break;						
 					default:
 						break;
 					}
@@ -59,7 +69,7 @@ public class ArrowController : MonoBehaviour {
 				//Stop the arrow
 				arrow.isKinematic = true;;
 				
-				GetComponent<Rigidbody> ().MovePosition (raycastResult.point);
+				transform.position = raycastResult.point;
 				transform.SetParent(raycastResult.transform,true);
 			}
 		} else {
