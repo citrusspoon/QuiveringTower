@@ -62,7 +62,7 @@ public class ArrowController : MonoBehaviour {
 				//Stop the arrow
 				arrow.isKinematic = true;;
 				
-				GetComponent<Rigidbody> ().MovePosition (raycastResult.point);
+				transform.position = raycastResult.point;
 				transform.SetParent(raycastResult.transform,true);
 			}
 		} else {
