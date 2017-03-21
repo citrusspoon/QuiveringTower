@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ArrowController : MonoBehaviour {
-	public enum ArrowType {Push,Pull,Dissolve,Rocket};
+	public enum ArrowType {Push,Pull,Dissolve,Rocket,Freeze};
 
 	public Rigidbody arrow;
 	public ArrowType type; 
@@ -48,6 +48,9 @@ public class ArrowController : MonoBehaviour {
 						break;
 					case ArrowType.Rocket:
 						StartCoroutine(applyConstantForce(raycastResult.rigidbody,arrow.velocity * 50));
+						break;
+					case ArrowType.Freeze:
+						raycastResult.rigidbody.isKinematic = true;
 						break;
 					default:
 						break;
