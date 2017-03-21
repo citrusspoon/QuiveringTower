@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ShootController : MonoBehaviour {
-	public ArrowController pushArrow, pullArrow, dissolveArrow, rocketArrow, freezeArrow;
+	public ArrowController pushArrow, pullArrow, dissolveArrow, rocketArrow, freezeArrow, shrinkArrow, expandArrow;
 	private GameObject arrowClone;
 	public Transform playerFace;
 	public Transform firePoint;
@@ -41,6 +41,12 @@ public class ShootController : MonoBehaviour {
 		} else if (Input.GetButton ("Select Freeze Arrow")){
 			chooseArrowType(freezeArrow);
 			print("Selected Freeze Arrow");
+		} else if (Input.GetButton ("Select Shrink Arrow")){
+			chooseArrowType(shrinkArrow);
+			print("Selected Shrink Arrow");
+		} else if (Input.GetButton ("Select Expand Arrow")){
+			chooseArrowType(expandArrow);
+			print("Selected Expand Arrow");
 		} else if (Input.GetButton ("Fire1")) {
 			currentShootPower += Mathf.Clamp(shootPowerSpeed * Time.deltaTime,0,100);
 		} else if (Input.GetButtonUp ("Fire1")) {

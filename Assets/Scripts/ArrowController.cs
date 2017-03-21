@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ArrowController : MonoBehaviour {
-	public enum ArrowType {Push,Pull,Dissolve,Rocket,Freeze};
+	public enum ArrowType {Push,Pull,Dissolve,Rocket,Freeze, Shrink, Expand};
 
 	public Rigidbody arrow;
 	public ArrowType type; 
@@ -53,6 +53,12 @@ public class ArrowController : MonoBehaviour {
 					case ArrowType.Freeze:
 						raycastResult.collider.gameObject.GetComponent<BlockController>().setFreezeTurns(numberOfFreezeTurns);
 						break;
+					case ArrowType.Shrink:
+						raycastResult.transform.localScale = 0.9f * raycastResult.transform.localScale;
+						break;
+					case ArrowType.Expand:
+						raycastResult.transform.localScale = 1.1f * raycastResult.transform.localScale;
+						break;						
 					default:
 						break;
 					}
