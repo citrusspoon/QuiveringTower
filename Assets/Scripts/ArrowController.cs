@@ -12,6 +12,7 @@ public class ArrowController : MonoBehaviour {
 	private Ray movementRay;
 	private RaycastHit raycastResult;
 	private Transform arrowWillStick = null;
+	[SerializeField] private int numberOfFreezeTurns; 
 
 	void Start ()
 	{
@@ -50,7 +51,7 @@ public class ArrowController : MonoBehaviour {
 						StartCoroutine(applyConstantForce(raycastResult.rigidbody,arrow.velocity * 50));
 						break;
 					case ArrowType.Freeze:
-						raycastResult.collider.gameObject.GetComponent<BlockController>().setFreezeTurns(2);
+						raycastResult.collider.gameObject.GetComponent<BlockController>().setFreezeTurns(numberOfFreezeTurns);
 						break;
 					default:
 						break;
