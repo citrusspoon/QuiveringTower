@@ -22,6 +22,7 @@ public class ShootController : MonoBehaviour {
 
 	void Start(){
 		gameController = GameController.controller;
+		chooseArrowType(pushArrow);
 	}
 
 	void Update () {
