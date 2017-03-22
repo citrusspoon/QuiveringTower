@@ -54,6 +54,7 @@ public class ChallengeManager : RulesManager {
 		if (blockRemoved && !isTowerMoving(tower) ){
 			// Check challange status now
 			if (isChallangeComplete()){
+				gameController.pauseGame();
 				uiController.challangeSuccess();
 			} else {
 
