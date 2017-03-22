@@ -50,4 +50,11 @@ public class GameController : MonoBehaviour {
 		UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
 		resetGame();
 	}
+
+	public void nextChallenge(){
+		UnityEngine.SceneManagement.SceneManager.LoadScene(
+			UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1
+		);
+		resetGame();
+	}
 }
