@@ -45,4 +45,9 @@ public class GameController : MonoBehaviour {
 		unpauseGame();
 		playerShouldShoot = true;
 	}
+
+	public void restartCurrentLevel(){
+		UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+		resetGame();
+	}
 }

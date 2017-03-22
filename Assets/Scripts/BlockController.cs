@@ -29,6 +29,9 @@ public ChallengeType challengeType;
 			case ChallengeType.DoNotShoot:
 			GetComponent<Renderer>().material.color = Color.red;
 			break;
+			case ChallengeType.DoNotRemove:
+			GetComponent<Renderer>().material.color = Color.yellow;
+			break;
 		}
 	}
 

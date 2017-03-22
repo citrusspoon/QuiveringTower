@@ -11,6 +11,9 @@ public class ChallengeUIController : MonoBehaviour {
 
 	void Start(){
 		reset();
+
+		// Connect retry and Next Buttons
+		retryButton.onClick.AddListener(retryLevel);
 	}
 
 	public void challangeSuccess(){
@@ -32,6 +35,10 @@ public class ChallengeUIController : MonoBehaviour {
 		messageText.enabled = false;
 		retryButton.gameObject.SetActive(false);
 		nextButton.gameObject.SetActive(false);
+	}
+
+	void retryLevel(){
+		GameController.controller.restartCurrentLevel();
 	}
 
 }
