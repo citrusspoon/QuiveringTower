@@ -15,12 +15,18 @@ public class ShootController : MonoBehaviour {
 	// NOTE> Can we do this in a more elegant way?
 	public Image drawPowerMeter;
 
+	private GameController gameController;
 
 	private float currentShootPower = 0.0f;
 	private int shootPowerSpeed = 75;
 
+	void Start(){
+		gameController = GameController.controller;
+		chooseArrowType(pushArrow);
+	}
+
 	void Update () {
-		if (GameObject.FindObjectOfType<GameManager>().isGamePaused()){
+		if (gameController.isPaused){
 			return;
 		}
 

@@ -22,7 +22,6 @@ public class ArrowController : MonoBehaviour {
 
 	void FixedUpdate ()
 	{
-
 		movementRay.origin = transform.position;
 		movementRay.direction = arrow.velocity;
 
@@ -71,9 +70,12 @@ public class ArrowController : MonoBehaviour {
 				
 				transform.position = raycastResult.point;
 				transform.SetParent(raycastResult.transform,true);
+
+				// If this is a block send a hit message
+				if(raycastResult.transform.gameObject.GetComponent<BlockController>()){
+					raycastResult.transform.gameObject.GetComponent<BlockController>().blockHit();
+				}
 			}
-		} else {
-			transform.rotation = lastOrientation;	// If the arrow stops retain last known orientation
 		}
 
 	}

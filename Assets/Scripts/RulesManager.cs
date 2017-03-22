@@ -18,14 +18,17 @@ public class RulesManager : MonoBehaviour {
 		}
 	}
 	
-	public void blockFallen(){
+	public virtual void blockFallen(BlockController block){
 		if (!blockDownThisTurn){
 			playerScore += 50;
 			blockDownThisTurn = true;
 		} else {
 			playerScore -= 10;
 		}
-		playerCanShoot = false;
+		GameController.controller.playerShouldShoot = false;
+	}
+
+	public virtual void blockHit(BlockController block){
 	}
 
 	void FixedUpdate(){
@@ -48,7 +51,7 @@ public class RulesManager : MonoBehaviour {
 	public void nextTurn(){
 		print("Next Turn");
 		blockDownThisTurn = false;
-		playerCanShoot = true;
+		GameController.controller.playerShouldShoot = true;
 
 		// Reset all blocks kinematics
 		foreach (BlockController block in GameObject.FindObjectsOfType<BlockController>()){

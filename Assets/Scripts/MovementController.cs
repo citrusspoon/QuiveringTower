@@ -16,16 +16,16 @@ public class MovementController : MonoBehaviour {
 
 	private float verticalVelocity = 0;
 	public float gravityMultiplier = 8.0f;
-	private GameManager gameManager;
+	private GameController gameController;
 
 	void Start () {
 		cc = GetComponent<CharacterController> ();	//	Character Controller Component
 		Cursor.lockState = CursorLockMode.Locked;	//	Renders the cursor invisible
-		gameManager = GameObject.FindObjectOfType<GameManager>();
+		gameController = GameController.controller;
 	}
 
 	void Update () {
-		if (!gameManager.isGamePaused()){
+		if (!gameController.isPaused){
 			/* Player & camera rotation */
 		transform.Rotate (0, Input.GetAxis ("Mouse X") * mouseSensitivity , 0);	//	Turn the player with the mouse x position
 

@@ -4,28 +4,26 @@ using UnityEngine;
 
 public class PauseMenuManager : MonoBehaviour {
 
-	public enum PAUSE_STATE {
-		PAUSED, UNPAUSED
+	private GameController gameController;
+
+	void Start(){
+		gameController = GameObject.FindObjectOfType<GameController>();
+		GetComponent<Canvas> ().enabled = false;
+		// TODO CHECK Controller
 	}
 
-	private PAUSE_STATE pauseState;
-
-	void Start () {
-		SetPauseState (PAUSE_STATE.UNPAUSED);
-	}
-
-	public void SetPauseState (PauseMenuManager.PAUSE_STATE flag) {
-		this.pauseState = flag;
-		ToggleMenu ();
-	}
-
-	public void ToggleMenu () {
-		if (pauseState == PAUSE_STATE.PAUSED) {
-			this.GetComponent<Canvas> ().enabled = true;
-		} else {
-			this.GetComponent<Canvas> ().enabled = false;
+	void Update(){
+		// When the pause button is pressed toggle the pause lockState
+		// And hide/display menu accordingly
+		if (Input.GetButtonDown ("Pause")) {
+			if (!gameController.isPaused) {
+				// Display pause menu
+				GetComponent<Canvas> ().enabled = true;
+				gameController.pauseGame();
+			} else {
+				resumeGame();
+			}
 		}
-			
 	}
 
 	public void OpenSettings () {
@@ -36,13 +34,9 @@ public class PauseMenuManager : MonoBehaviour {
 		UnityEngine.SceneManagement.SceneManager.LoadScene ("Menu");
 	}
 
-	public PAUSE_STATE getPauseState () {
-		return pauseState;
-	}
-
 	public void resumeGame(){
-		SetPauseState(PauseMenuManager.PAUSE_STATE.UNPAUSED);
-		Cursor.lockState = CursorLockMode.Locked;
+		GetComponent<Canvas> ().enabled = false;
+		gameController.unpauseGame();
 	}
 
 

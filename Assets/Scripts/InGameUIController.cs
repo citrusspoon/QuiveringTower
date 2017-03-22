@@ -3,50 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour {
+public class InGameUIController : MonoBehaviour {
 	// Use this manager to handle UI activity
-	public PauseMenuManager pmm;
 	public Text timerText;
 	public Image timerFill;
 	public Text scoreText;
 	public GameObject crosshair, cannotShootIcon;
 
 	private float turnTimeLeft;
-	private bool gamePaused = false;
 	public float totalTurnTime;
+	private GameController gameController;
 
 	// Use this for initialization
 	void Start () {
 		turnTimeLeft = totalTurnTime;
+		gameController = GameController.controller;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (!isGamePaused()) {
+		if (!gameController.isPaused) {
 			turnTimeLeft -= Time.deltaTime;
 			timerText.text = Mathf.RoundToInt (turnTimeLeft).ToString ();
 		}
-
-		//print (turnTimeLeft / totalTurnTime);
 		timerFill.fillAmount = turnTimeLeft / totalTurnTime;
-
-		if (Input.GetButtonDown ("Pause")) {
-			if (pmm.getPauseState () == PauseMenuManager.PAUSE_STATE.UNPAUSED) {
-				pmm.SetPauseState (PauseMenuManager.PAUSE_STATE.PAUSED);
-			} else
-				pmm.SetPauseState (PauseMenuManager.PAUSE_STATE.UNPAUSED);
-		}
 
 		scoreText.text = "Score: " + RulesManager.manager.playerScore.ToString();
 		crosshair.SetActive(RulesManager.manager.playerCanShoot);
-		cannotShootIcon.SetActive(!RulesManager.manager.playerCanShoot);
-	}
 
-	public bool isGamePaused(){
-		if (pmm.getPauseState() == PauseMenuManager.PAUSE_STATE.PAUSED){
-			return true;
+		if (gameController.playerShouldShoot){
+			cannotShootIcon.SetActive(false);
 		} else {
-			return false;
+			cannotShootIcon.SetActive(true);
 		}
 	}
 
