@@ -29,7 +29,6 @@ public class RulesManager : MonoBehaviour {
 	}
 
 	public virtual void blockHit(BlockController block){
-		print("Wrong block hit called");
 	}
 
 	void FixedUpdate(){

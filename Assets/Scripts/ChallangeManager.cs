@@ -11,6 +11,7 @@ public class ChallangeManager : RulesManager {
 	private GameObject tower; 
 	[SerializeField] ChallangeUIController uiController;
 	private GameController gameController;
+	private bool blockRemoved = false;
 
 	// Use this for initialization
 	void Start () {
@@ -32,7 +33,12 @@ public class ChallangeManager : RulesManager {
 		if (block.challangeType == BlockController.ChallangeType.DoNotRemove){
 			gameController.pauseGame();
 			uiController.challangeFail();
+		} else if (block.challangeType == BlockController.ChallangeType.Goal){
+			block.challangeType = BlockController.ChallangeType.Normal;
 		}
+
+		// A block was blockRemoved
+		blockRemoved = true;
 	}
 
     public override void blockHit(BlockController block){
@@ -44,10 +50,30 @@ public class ChallangeManager : RulesManager {
 	}
 
 	void FixedUpdate(){
-		// Check challange status
+		// Wait until tower stops moving
+		if (blockRemoved && !isTowerMoving(tower) ){
+			// Check challange status now
+			if (isChallangeComplete()){
+				uiController.challangeSuccess();
+			} else {
+
+			}
+		}
 	}
 
 	public void NextChallange (){
 		// Challange success. Move to the next one
+		uiController.challangeSuccess();
+	}
+
+	private bool isChallangeComplete(){
+		// Check each block in the tower
+		// If there are any blocks marked as Goal return false
+		foreach(BlockController block in tower.GetComponentsInChildren<BlockController>()){
+			if (block.challangeType == BlockController.ChallangeType.Goal) {
+				return false;
+			}
+		}
+	return true;
 	}
 }
