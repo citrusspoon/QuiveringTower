@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class BlockController : MonoBehaviour {
 
+public enum ChallangeType{Normal, Goal, DoNotRemove, DoNotShoot}
+public ChallangeType challangeType;
+
+
 	public bool isTouchingGround = false;
 	public bool isInTower = true;
 	private int frozenTurns = 0;
@@ -13,7 +17,7 @@ public class BlockController : MonoBehaviour {
 		if (!isInTower && collision.gameObject.tag == "Ground" && !isTouchingGround){
 			isTouchingGround = true;
 			gameObject.tag = "Ground";		
-			RulesManager.manager.blockFallen();
+			RulesManager.manager.blockFallen(this);
 			}
 	}
 
@@ -34,6 +38,10 @@ public class BlockController : MonoBehaviour {
 
 	public void nextTurn(){
 		setFreezeTurns(frozenTurns - 1);
+	}
+
+	public void blockHit(){
+		RulesManager.manager.blockHit(this);
 	}
 
 
