@@ -21,6 +21,17 @@ public ChallengeType challengeType;
 			}
 	}
 
+	void Start(){
+		switch(challengeType){
+			case ChallengeType.Goal:
+			GetComponent<Renderer>().material.color = Color.green;
+			break;
+			case ChallengeType.DoNotShoot:
+			GetComponent<Renderer>().material.color = Color.red;
+			break;
+		}
+	}
+
 	public void OnTriggerExit(){
 		isInTower = false;
 	}
