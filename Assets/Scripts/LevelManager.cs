@@ -19,6 +19,7 @@ public enum GameMode{SinglePlayerFreeplay, SinglePlayerChallange}
 
 	public void StartNewGame(){
 		UnityEngine.SceneManagement.SceneManager.LoadScene ("Main");
+		GameController.controller.resetGame();
 	}
 
 	public void StartNewGame(GameMode gameMode){
@@ -28,6 +29,7 @@ public enum GameMode{SinglePlayerFreeplay, SinglePlayerChallange}
 			break;
 			case GameMode.SinglePlayerChallange:
 			UnityEngine.SceneManagement.SceneManager.LoadScene ("Level_01");
+			GameController.controller.resetGame();
 			break;
 		}
 	}

@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour {
 		Cursor.lockState = CursorLockMode.Locked;
 	}
 
-	void resetGame(){
+	public void resetGame(){
 		unpauseGame();
 		playerShouldShoot = true;
 	}
