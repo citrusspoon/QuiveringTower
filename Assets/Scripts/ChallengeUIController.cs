@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class ChallangeUIController : MonoBehaviour {
+public class ChallengeUIController : MonoBehaviour {
 
 	[SerializeField] Text messageText;
 	[SerializeField] Button retryButton, nextButton;
@@ -15,14 +15,14 @@ public class ChallangeUIController : MonoBehaviour {
 
 	public void challangeSuccess(){
 		
-		messageText.text = "Challange Completed";
+		messageText.text = "Challenge Completed";
 		messageText.enabled = true;
 		retryButton.gameObject.SetActive(true);
 		nextButton.gameObject.SetActive(true);
 	}
 
 	public void challangeFail(){
-		messageText.text = "Challange Failed";
+		messageText.text = "Challenge Failed";
 		messageText.enabled = true;
 		retryButton.gameObject.SetActive(true);
 		nextButton.gameObject.SetActive(true);

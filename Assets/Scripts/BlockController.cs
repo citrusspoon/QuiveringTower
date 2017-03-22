@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BlockController : MonoBehaviour {
 
-public enum ChallangeType{Normal, Goal, DoNotRemove, DoNotShoot}
-public ChallangeType challangeType;
+public enum ChallengeType{Normal, Goal, DoNotRemove, DoNotShoot}
+public ChallengeType challengeType;
 
 
 	public bool isTouchingGround = false;

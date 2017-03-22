@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChallangeManager : RulesManager {
+public class ChallengeManager : RulesManager {
 
 	/// Defines the rules of the challanges
 
 	// Store a reference to the tower
 	private GameObject tower; 
-	[SerializeField] ChallangeUIController uiController;
+	[SerializeField] ChallengeUIController uiController;
 	private GameController gameController;
 	private bool blockRemoved = false;
 
@@ -30,11 +30,11 @@ public class ChallangeManager : RulesManager {
 
 	public override void blockFallen(BlockController block){
 		// Check if the player was required / allowed to remove the block from tower
-		if (block.challangeType == BlockController.ChallangeType.DoNotRemove){
+		if (block.challengeType == BlockController.ChallengeType.DoNotRemove){
 			gameController.pauseGame();
 			uiController.challangeFail();
-		} else if (block.challangeType == BlockController.ChallangeType.Goal){
-			block.challangeType = BlockController.ChallangeType.Normal;
+		} else if (block.challengeType == BlockController.ChallengeType.Goal){
+			block.challengeType = BlockController.ChallengeType.Normal;
 		}
 
 		// A block was blockRemoved
@@ -43,7 +43,7 @@ public class ChallangeManager : RulesManager {
 
     public override void blockHit(BlockController block){
 		// Check if the player was allowed to hit the block
-		if (block.challangeType == BlockController.ChallangeType.DoNotShoot){
+		if (block.challengeType == BlockController.ChallengeType.DoNotShoot){
 			gameController.pauseGame();
 			uiController.challangeFail();
 		}
@@ -70,7 +70,7 @@ public class ChallangeManager : RulesManager {
 		// Check each block in the tower
 		// If there are any blocks marked as Goal return false
 		foreach(BlockController block in tower.GetComponentsInChildren<BlockController>()){
-			if (block.challangeType == BlockController.ChallangeType.Goal) {
+			if (block.challengeType == BlockController.ChallengeType.Goal) {
 				return false;
 			}
 		}
