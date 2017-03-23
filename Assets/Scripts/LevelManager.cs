@@ -17,20 +17,20 @@ public enum GameMode{SinglePlayerFreeplay, SinglePlayerChallange}
 		}
 	}
 
-	public void StartNewGame(){
-		UnityEngine.SceneManagement.SceneManager.LoadScene ("Main");
-		GameController.controller.resetGame();
-	}
-
 	public void StartNewGame(GameMode gameMode){
 		switch (gameMode){
 			case GameMode.SinglePlayerFreeplay:
-			StartNewGame();
-			break;
+				UnityEngine.SceneManagement.SceneManager.LoadScene ("Main");
+				if (GameController.controller != null){
+					GameController.controller.resetGame();
+				}
+				break;
 			case GameMode.SinglePlayerChallange:
-			UnityEngine.SceneManagement.SceneManager.LoadScene ("Level_01");
-			GameController.controller.resetGame();
-			break;
+				UnityEngine.SceneManagement.SceneManager.LoadScene ("Level_01");
+				if (GameController.controller != null){
+					GameController.controller.resetGame();
+				}
+				break;
 		}
 	}
 
