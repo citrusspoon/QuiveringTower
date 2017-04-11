@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour {
-	[SerializeField] private Button SinglePlayerFreePlay, SinglePlayerChallanges;
+	[SerializeField] private Button SinglePlayerFreePlay, SinglePlayerChallanges, HotSeat, ExitGame;
 
 	void Start(){
 		SinglePlayerChallanges.onClick.AddListener(StartSinglePlayerChallanges);
 		SinglePlayerFreePlay.onClick.AddListener(StartSinglePlayerFreePlay);
+		HotSeat.onClick.AddListener(StartHotSeat);
+		ExitGame.onClick.AddListener(StartExitGame);
+		Cursor.lockState = CursorLockMode.None;
 	}
 
 	void StartSinglePlayerChallanges(){
@@ -17,6 +20,14 @@ public class MainMenuController : MonoBehaviour {
 
 	void StartSinglePlayerFreePlay(){
 		LevelManager.manager.StartNewGame(LevelManager.GameMode.SinglePlayerFreeplay);
+	}
+
+	void StartHotSeat(){
+		LevelManager.manager.StartNewGame(LevelManager.GameMode.HotSeat);
+	}
+
+	void StartExitGame(){
+		Application.Quit();
 	}
 
 }

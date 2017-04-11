@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour {
 
 public static LevelManager manager = null;
-public enum GameMode{SinglePlayerFreeplay, SinglePlayerChallange}
+public enum GameMode{SinglePlayerFreeplay, SinglePlayerChallange, HotSeat}
 
 	void Start(){
 		if (manager == null){
@@ -27,6 +27,12 @@ public enum GameMode{SinglePlayerFreeplay, SinglePlayerChallange}
 				break;
 			case GameMode.SinglePlayerChallange:
 				UnityEngine.SceneManagement.SceneManager.LoadScene ("Level_01");
+				if (GameController.controller != null){
+					GameController.controller.resetGame();
+				}
+				break;
+			case GameMode.HotSeat:
+				UnityEngine.SceneManagement.SceneManager.LoadScene ("Hot_Level_01");
 				if (GameController.controller != null){
 					GameController.controller.resetGame();
 				}
