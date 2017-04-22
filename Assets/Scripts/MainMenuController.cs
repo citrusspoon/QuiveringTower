@@ -25,7 +25,7 @@ public class MainMenuController : MonoBehaviour {
 	void StartHotSeat(){
 		LevelManager.manager.StartNewGame(LevelManager.GameMode.HotSeat);
 	}
-
+	//This will work when you build it, but not in the editor
 	void StartExitGame(){
 		Application.Quit();
 	}
