@@ -11,6 +11,8 @@ public class ShootController : MonoBehaviour {
 	public float shootForce = 500.0f;
 	private Quaternion rotation = Quaternion.identity;
 	private ArrowController selectedArrow = null;
+	[SerializeField] private Renderer rend;
+
 
 	// NOTE> Can we do this in a more elegant way?
 	public Image drawPowerMeter;
@@ -67,6 +69,7 @@ public class ShootController : MonoBehaviour {
 
 	private void chooseArrowType(ArrowController arrowType){
 		selectedArrow = arrowType;
+		rend.material.color = selectedArrow.GetComponent<Renderer>().sharedMaterials[2].color;
 	}
 
     void ShootArrow() {
