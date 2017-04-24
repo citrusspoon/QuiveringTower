@@ -19,6 +19,9 @@ public ChallengeType challengeType;
 			gameObject.tag = "Ground";		
 			RulesManager.manager.blockFallen(this);
 			}
+		if (collision.gameObject.tag == "Platform") {
+			Physics.IgnoreCollision (this.GetComponent<Collider>(), collision.gameObject.GetComponent<Collider>());
+		}
 	}
 
 	void Start(){
