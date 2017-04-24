@@ -12,6 +12,8 @@ public class ShootController : MonoBehaviour {
 	private Quaternion rotation = Quaternion.identity;
 	private ArrowController selectedArrow = null;
 	[SerializeField] private Renderer rend;
+	[SerializeField] private AudioClip arrowSwitchSound;
+	[SerializeField] private AudioClip arrowSound;
 
 
 	// NOTE> Can we do this in a more elegant way?
@@ -70,6 +72,8 @@ public class ShootController : MonoBehaviour {
 	private void chooseArrowType(ArrowController arrowType){
 		selectedArrow = arrowType;
 		rend.material.color = selectedArrow.GetComponent<Renderer>().sharedMaterials[2].color;
+		GetComponent<AudioSource> ().clip = arrowSwitchSound;
+		GetComponent<AudioSource> ().Play ();
 	}
 
     void ShootArrow() {
@@ -77,7 +81,7 @@ public class ShootController : MonoBehaviour {
         arrowClone = Instantiate(selectedArrow.gameObject,firePoint.position, rotation);
 		arrowClone.GetComponent<Rigidbody> ().AddForce (playerFace.forward * shootForce * (currentShootPower / 100));	//	Add force to it
 		DestroyClone ();
-
+		GetComponent<AudioSource> ().clip = arrowSound;
 		GetComponent<AudioSource> ().Play ();
 	}
 
