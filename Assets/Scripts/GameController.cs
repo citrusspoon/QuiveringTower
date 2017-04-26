@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour {
 	public bool playerShouldShoot;
 
 	public Player player1, player2;
-	private Player activePlayer;
+	public Player activePlayer;
 
 
 	// Use this for initialization

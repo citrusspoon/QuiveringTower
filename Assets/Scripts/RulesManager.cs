@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class RulesManager : MonoBehaviour {
 
-	public int playerScore = 0;
-
 	public static RulesManager manager = null;
 	public bool playerCanShoot = true;
 	private bool blockDownThisTurn = false;
@@ -20,10 +18,10 @@ public class RulesManager : MonoBehaviour {
 	
 	public virtual void blockFallen(BlockController block){
 		if (!blockDownThisTurn){
-			playerScore += 50;
+			GameController.controller.activePlayer.score += 50;
 			blockDownThisTurn = true;
 		} else {
-			playerScore -= 10;
+			GameController.controller.activePlayer.score -= 10;
 		}
 		GameController.controller.playerShouldShoot = false;
 	}
@@ -57,5 +55,7 @@ public class RulesManager : MonoBehaviour {
 		foreach (BlockController block in GameObject.FindObjectsOfType<BlockController>()){
 			block.nextTurn();
 		}
+
+		GameController.controller.nextPlayer();
 	}
 }

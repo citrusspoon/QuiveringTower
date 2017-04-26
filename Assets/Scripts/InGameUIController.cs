@@ -29,7 +29,7 @@ public class InGameUIController : MonoBehaviour {
 		}
 		timerFill.fillAmount = turnTimeLeft / totalTurnTime;
 
-		scoreText.text = "Score: " + RulesManager.manager.playerScore.ToString();
+		scoreText.text = "Score: " + GameController.controller.activePlayer.score.ToString();
 		crosshair.SetActive(RulesManager.manager.playerCanShoot);
 
 		if (gameController.playerShouldShoot){
