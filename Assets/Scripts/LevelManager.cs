@@ -33,7 +33,7 @@ public enum GameMode{SinglePlayerFreeplay, SinglePlayerChallange, HotSeat}
 				}
 				break;
 			case GameMode.HotSeat:
-				UnityEngine.SceneManagement.SceneManager.LoadScene ("Hot_Level_01");
+				UnityEngine.SceneManagement.SceneManager.LoadScene ("Hot_Level_02");
 				if (GameController.controller != null){
 					GameController.controller.resetGame();
 				}
