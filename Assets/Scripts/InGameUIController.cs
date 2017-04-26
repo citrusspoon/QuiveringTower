@@ -13,6 +13,7 @@ public class InGameUIController : MonoBehaviour {
 	private float turnTimeLeft;
 	public float totalTurnTime;
 	private GameController gameController;
+	[SerializeField] Text ingameTextMessage;
 
 	// Use this for initialization
 	void Start () {
@@ -22,20 +23,31 @@ public class InGameUIController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!gameController.isPaused) {
-			turnTimeLeft -= Time.deltaTime;
+		if (RulesManager.manager != null){
+			float turnTimeLeft = RulesManager.manager.turnTimeLeft;
+
 			timerText.text = Mathf.RoundToInt (turnTimeLeft).ToString ();
+			timerFill.fillAmount = turnTimeLeft / RulesManager.manager.turnTime;
+
+			crosshair.SetActive(RulesManager.manager.playerCanShoot);
 		}
-		timerFill.fillAmount = turnTimeLeft / totalTurnTime;
+		scoreText.text = "Score: " + GameController.controller.activePlayer.score.ToString();
+		
 
-		scoreText.text = "Score: " + RulesManager.manager.playerScore.ToString();
-		crosshair.SetActive(RulesManager.manager.playerCanShoot);
-
-		if (gameController.playerShouldShoot){
+		if (gameController.playerShouldShoot && gameController.activePlayer.isWaitingPlayerInput){
 			cannotShootIcon.SetActive(false);
+			ingameTextMessage.text = gameController.activePlayer.playerName + " Press Space to Start Turn";
+		} else if (gameController.playerShouldShoot && !gameController.activePlayer.isWaitingPlayerInput) {
+			cannotShootIcon.SetActive(false);
+			ingameTextMessage.text = "";
 		} else {
 			cannotShootIcon.SetActive(true);
+			ingameTextMessage.text = gameController.getNextPlayer().playerName + " Get Ready!";
 		}
+	}
+
+	void displayMessage(string message){
+		ingameTextMessage.text = message;
 	}
 
 }

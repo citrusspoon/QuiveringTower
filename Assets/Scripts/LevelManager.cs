@@ -22,6 +22,7 @@ public enum GameMode{SinglePlayerFreeplay, SinglePlayerChallange, HotSeat}
 			case GameMode.SinglePlayerFreeplay:
 				UnityEngine.SceneManagement.SceneManager.LoadScene ("Main");
 				if (GameController.controller != null){
+					//GameController.controller.setGameWithPlayers(1);
 					GameController.controller.resetGame();
 				}
 				break;
