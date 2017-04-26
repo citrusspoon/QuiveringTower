@@ -23,13 +23,16 @@ public class InGameUIController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float turnTimeLeft = RulesManager.manager.turnTimeLeft;
+		if (RulesManager.manager != null){
+			float turnTimeLeft = RulesManager.manager.turnTimeLeft;
 
-		timerText.text = Mathf.RoundToInt (turnTimeLeft).ToString ();
-		timerFill.fillAmount = turnTimeLeft / RulesManager.manager.turnTime;
+			timerText.text = Mathf.RoundToInt (turnTimeLeft).ToString ();
+			timerFill.fillAmount = turnTimeLeft / RulesManager.manager.turnTime;
 
+			crosshair.SetActive(RulesManager.manager.playerCanShoot);
+		}
 		scoreText.text = "Score: " + GameController.controller.activePlayer.score.ToString();
-		crosshair.SetActive(RulesManager.manager.playerCanShoot);
+		
 
 		if (gameController.playerShouldShoot && gameController.activePlayer.isWaitingPlayerInput){
 			cannotShootIcon.SetActive(false);

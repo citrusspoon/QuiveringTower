@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour {
 		// Singleton
 		if (controller == null){
 			controller = this;
-			DontDestroyOnLoad(this);
+			//DontDestroyOnLoad(this);
 		} else {
 			Destroy(this.gameObject);
 		}
@@ -44,7 +44,7 @@ public class GameController : MonoBehaviour {
 	void Start (){
 		resetGame();
 	}
-	
+
 	public void pauseGame(){
 		// Pause the game
 		isPaused = true;
@@ -62,6 +62,14 @@ public class GameController : MonoBehaviour {
 	public void resetGame(){
 		unpauseGame();
 
+		players = new List<Player>();
+		print("HELLO");
+		print(GameObject.FindObjectsOfType<Player>().Length);
+		// Setup players
+		foreach (Player player in GameObject.FindObjectsOfType<Player>()){
+			players.Add(player);
+		}
+
 		foreach(Player player in players){
 			player.gameObject.SetActive(false);
 		}
@@ -70,6 +78,10 @@ public class GameController : MonoBehaviour {
 
 
 		playerShouldShoot = true;
+	}
+
+	void OnLevelLoadded(){
+		resetGame();
 	}
 
 	public void restartCurrentLevel(){
@@ -90,4 +102,5 @@ public class GameController : MonoBehaviour {
 		);
 		resetGame();
 	}
+
 }
