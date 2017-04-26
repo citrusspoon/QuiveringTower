@@ -39,5 +39,9 @@ public class PauseMenuManager : MonoBehaviour {
 		gameController.unpauseGame();
 	}
 
+	public void restartLevel(){
+		GameController.controller.restartCurrentLevel();
+	}
+
 
 }
