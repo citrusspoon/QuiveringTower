@@ -8,6 +8,10 @@ public class GameController : MonoBehaviour {
 	public bool isPaused;
 	public bool playerShouldShoot;
 
+	public Player player1, player2;
+	private Player activePlayer;
+
+
 	// Use this for initialization
 	void Awake () {
 		// Singleton
@@ -43,12 +47,29 @@ public class GameController : MonoBehaviour {
 
 	public void resetGame(){
 		unpauseGame();
+		player1.gameObject.SetActive(true);
+		player2.gameObject.SetActive(false);
+		activePlayer = player1;
+
 		playerShouldShoot = true;
 	}
 
 	public void restartCurrentLevel(){
 		UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
 		resetGame();
+	}
+
+	public void nextPlayer(){
+		if(player1.gameObject.activeSelf){
+			player1.gameObject.SetActive(false);
+			player2.gameObject.SetActive(true);
+			activePlayer = player2;
+		} else {
+			player1.gameObject.SetActive(true);
+			player2.gameObject.SetActive(false);
+			activePlayer = player1;
+		}
+
 	}
 
 	public void nextChallenge(){

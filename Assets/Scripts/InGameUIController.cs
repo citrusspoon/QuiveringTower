@@ -13,6 +13,7 @@ public class InGameUIController : MonoBehaviour {
 	private float turnTimeLeft;
 	public float totalTurnTime;
 	private GameController gameController;
+	[SerializeField] Text ingameTextMessage;
 
 	// Use this for initialization
 	void Start () {
@@ -36,6 +37,10 @@ public class InGameUIController : MonoBehaviour {
 		} else {
 			cannotShootIcon.SetActive(true);
 		}
+	}
+
+	void displayMessage(string message){
+		ingameTextMessage.text = message;
 	}
 
 }
