@@ -4,17 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-	public string Name;
+	public string playerName;
 	public int score;
+	public bool isWaitingPlayerInput;
 
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

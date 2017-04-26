@@ -25,7 +25,7 @@ public class MovementController : MonoBehaviour {
 	}
 
 	void Update () {
-		if (!gameController.isPaused){
+		if (!gameController.isPaused && !GetComponent<Player>().isWaitingPlayerInput){
 			/* Player & camera rotation */
 		transform.Rotate (0, Input.GetAxis ("Mouse X") * mouseSensitivity , 0);	//	Turn the player with the mouse x position
 

@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour {
 	public bool isPaused;
 	public bool playerShouldShoot;
 
-	public Player player1, player2;
+	public List<Player> players;
 	public Player activePlayer;
 
 
@@ -23,14 +23,28 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	void Update(){
+		if (Input.GetKeyDown(KeyCode.Space) && activePlayer.isWaitingPlayerInput){
+			activePlayer.isWaitingPlayerInput = false;
+		}
+	}
+
+	public Player getNextPlayer(){
+		int activePlayerIndex = players.IndexOf(activePlayer);
+		int nextPlayerIndex;
+		if (activePlayerIndex == players.Count - 1){
+			nextPlayerIndex = 0;
+		} else {
+			nextPlayerIndex = activePlayerIndex + 1;
+		}
+
+		return players[nextPlayerIndex];
+	}
+
 	void Start (){
 		resetGame();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	}
-
 	public void pauseGame(){
 		// Pause the game
 		isPaused = true;
@@ -47,9 +61,13 @@ public class GameController : MonoBehaviour {
 
 	public void resetGame(){
 		unpauseGame();
-		player1.gameObject.SetActive(true);
-		player2.gameObject.SetActive(false);
-		activePlayer = player1;
+
+		foreach(Player player in players){
+			player.gameObject.SetActive(false);
+		}
+		activePlayer = players[0];
+		players[0].gameObject.SetActive(true);
+
 
 		playerShouldShoot = true;
 	}
@@ -60,16 +78,10 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void nextPlayer(){
-		if(player1.gameObject.activeSelf){
-			player1.gameObject.SetActive(false);
-			player2.gameObject.SetActive(true);
-			activePlayer = player2;
-		} else {
-			player1.gameObject.SetActive(true);
-			player2.gameObject.SetActive(false);
-			activePlayer = player1;
-		}
-
+		activePlayer.gameObject.SetActive(false);
+		activePlayer = getNextPlayer();
+		activePlayer.isWaitingPlayerInput = true;
+		activePlayer.gameObject.SetActive(true);
 	}
 
 	public void nextChallenge(){

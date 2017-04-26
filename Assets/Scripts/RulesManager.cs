@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class RulesManager : MonoBehaviour {
 
+
+	public float turnTimeLeft;
+	public float turnTime;
 	public static RulesManager manager = null;
 	public bool playerCanShoot = true;
 	private bool blockDownThisTurn = false;
@@ -13,6 +16,18 @@ public class RulesManager : MonoBehaviour {
 			RulesManager.manager = this;
 		} else {
 			Destroy(this);
+		}
+
+		turnTimeLeft = turnTime;
+	}
+
+	void Update(){	
+		if (!GameController.controller.isPaused && !GameController.controller.activePlayer.isWaitingPlayerInput) {
+			turnTimeLeft -= Time.deltaTime;
+		}
+
+		if (turnTimeLeft < 0){
+			nextTurn();
 		}
 	}
 	
@@ -50,7 +65,7 @@ public class RulesManager : MonoBehaviour {
 		print("Next Turn");
 		blockDownThisTurn = false;
 		GameController.controller.playerShouldShoot = true;
-
+		turnTimeLeft = turnTime;
 		// Reset all blocks kinematics
 		foreach (BlockController block in GameObject.FindObjectsOfType<BlockController>()){
 			block.nextTurn();
